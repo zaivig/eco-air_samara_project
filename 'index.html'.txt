@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Биоиндикация воздуха | Сосна</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="fade-in">
+    <div class="hero">
+        <div class="eco-icon">🌲🌍💨</div>
+        <h1>Чистый воздух рядом<h1>
+        <p>Определи состояние воздуха по сосне</p>
+    </div>
+</header>
+
+<section class="fade-in delay">
+    <h2>Как определить по сосне?</h2>
+    <div class="cards">
+        <div class="card">
+            <div class="icon">🌲</div>
+            <h3>Сосна обыкновенная</h3>
+            <p><strong>Чистый воздух:</strong> хвоя длинная (5–8 см), ярко-зелёная, живёт 3–4 года.</p>
+            <p><strong>Среднее загрязнение:</strong> хвоя укорачивается (3–4 см), появляются желтоватые кончики, деревья выглядят слабыми.</p>
+            <p><strong>Сильное загрязнение:</strong> хвоя короткая (1–2 см), буреет, массово опадает, верхушки деревьев сухие, наблюдается хлороз.</p>
+        </div>
+    </div>
+</section>
+
+<section class="fade-in delay2">
+    <h2>Выбери состояние воздуха</h2>
+    <div class="indicator-buttons">
+        <button class="btn green" onclick="selectLevel('green')">🟢 Чистый</button>
+        <button class="btn yellow" onclick="selectLevel('yellow')">🟡 Средний</button>
+        <button class="btn red" onclick="selectLevel('red')">🔴 Высокий</button>
+    </div>
+</section>
+
+<!-- Блок для зелёного -->
+<section id="greenAdvice" class="hidden fade-in">
+    <h2>🌱 Ваш воздух чистый!</h2>
+    <div class="advice-card">
+        <p>Отлично! Чтобы сохранить чистоту воздуха:</p>
+        <ul>
+            <li>Высаживайте деревья и кустарники вдоль дорог</li>
+            <li>Используйте общественный транспорт, велосипед, электросамокат</li>
+            <li>Сортируйте отходы и не сжигайте мусор</li>
+            <li>Поддерживайте местные экологические инициативы</li>
+        </ul>
+        <p><strong>Официальные рекомендации:</strong>
+
+        <a href="https://www.mnr.gov.ru/activity/directions/ohrana_okruzhayushchey_sredy/" target="_blank">➡️ Минприроды России</a>
+
+        <a href="http://publication.pravo.gov.ru/Document/View/0001202108020015" target="_blank">➡️ Федеральный закон «Об охране окружающей среды»</a></p>
+    </div>
+</section>
+
+<!-- Информационный блок о различии уровней -->
+<section id="infoBlock" class="hidden fade-in">
+    <div class="info-card">
+        <h3>📊 Почему средняя и высокая загрязнённость отличаются?</h3>
+        <p><strong>Среднее загрязнение:</strong> концентрация вредных веществ превышает норму в 2–5 раз. Дыхание становится тяжелее, появляется кашель, аллергия. Растения угнетены, но ещё могут восстанавливаться.</p>
+        <p><strong>Высокое загрязнение:</strong> превышение нормы в 5–10 раз и более. Воздух опасен для жизни: вызывает хронические болезни, поражает лёгкие, сердечно-сосудистую систему. Сосны гибнут, экосистема разрушается.</p>
+        <p>😮‍💨 <strong>Почему мы плохо дышим?</strong> Вредные газы (NO₂, SO₂, CO, озон) и мелкодисперсные частицы PM2.5 проникают глубоко в лёгкие, вызывают воспаление, снижают иммунитет. Чем выше загрязнение, тем быстрее наступают необратимые последствия.</p>
+    </div>
+</section>
+
+<!-- ВОЛОНТЁРСКИЙ ПРИЗЫВ (появляется при жёлтом/красном) -->
+<section id="volunteerCall" class="hidden fade-in">
+    <div class="volunteer-card">
+        <h3>🤝 Стань эко-героем своего района!</h3>
+        <p>Ты уже знаешь, что воздух загрязнён. Теперь — время действовать!</p>
+        <ul>
+            <li>📢 <strong>Расскажи соседям</strong> — поделись этим сайтом, покажи, как определить загрязнение по сосне.</li>
+            <li>📸 <strong>Не нарушай сам</strong> — чистый мир начинается с тебя</li>
+            <li>🌱 <strong>Организуй субботник</strong> или посадку деревьев с соседями — вместе легче добиться перемен.</li>
+        </ul>
+        <div class="links">
+            <a href="https://www.mnr.gov.ru/activity/directions/ohrana_okruzhayushchey_sredy/kak_soobshchit_o_narushenii/" target="_blank">⚖️ Обратиться в Минприроды</a>
+            <a href="https://ecowiki.ru/" target="_blank">🌍 Эковолонтёрские проекты</a>
+        </div>
+        <p class="sign">Присоединяйся! 💚 Вместе мы добьёмся чистого воздуха.</p>
+    </div>
+</section>
+
+<!-- Множественный выбор причин -->
+<section id="reasons" class="hidden fade-in">
+    <h2>Какие источники загрязнения есть в твоём районе?</h2>
+    <p class="note">✅ Отметь все, что есть рядом (можно выбрать несколько)</p>
+    <div class="checkbox-group">
+        <label><input type="checkbox" value="cars"> 🚗 Транспорт (шоссе, оживлённая дорога)</label>
+        <label><input type="checkbox" value="factory"> 🏭 Промышленность (завод, ТЭЦ)</label>
+        <label><input type="checkbox" value="dust"> 🌫 Пыль / стройка</label>
+        <label><input type="checkbox" value="burning"> 🔥 Сжигание мусора</label>
+        <label><input type="checkbox" value="heating"> 🏠 Отопление (частные печи, котельные)</label>
+    </div>
+    <button class="action-btn" onclick="getMultipleSolutions()">📋 Получить решения</button>
+</section>
+
+<!-- Блок решений -->
+<section id="result" class="hidden fade-in">
+    <h2>Что можно сделать</h2>
+    <div id="solutions" class="solutions-container"></div>
+    <div id="volunteerAction" style="margin-top: 20px; text-align: center;"></div>
+</section>
+
+<footer>
+    <p>Сайт создан в рамках проекта на площадке V экологического лагеря ПАО «Газпром».
+Создан делегацией «Газпром трансгаз Самара».</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

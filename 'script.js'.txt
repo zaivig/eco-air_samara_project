@@ -1,0 +1,156 @@
+let currentLevel = null;
+
+function selectLevel(level) {
+    currentLevel = level;
+
+    document.getElementById("greenAdvice").classList.add("hidden");
+    document.getElementById("infoBlock").classList.add("hidden");
+    document.getElementById("volunteerCall").classList.add("hidden");
+    document.getElementById("reasons").classList.add("hidden");
+    document.getElementById("result").classList.add("hidden");
+
+    if (level === 'green') {
+        document.getElementById("greenAdvice").classList.remove("hidden");
+        document.getElementById("greenAdvice").scrollIntoView({ behavior: "smooth" });
+    } else {
+        document.getElementById("infoBlock").classList.remove("hidden");
+        document.getElementById("volunteerCall").classList.remove("hidden");
+        document.getElementById("reasons").classList.remove("hidden");
+        document.getElementById("reasons").scrollIntoView({ behavior: "smooth" });
+    }
+}
+
+function getMultipleSolutions() {
+    if (!currentLevel || currentLevel === 'green') {
+        alert("Сначала выберите уровень загрязнения (жёлтый или красный)");
+        return;
+    }
+
+    const checkboxes = document.querySelectorAll('#reasons input[type="checkbox"]');
+    const selectedCauses = [];
+    checkboxes.forEach(cb => {
+        if (cb.checked) selectedCauses.push(cb.value);
+    });
+
+    if (selectedCauses.length === 0) {
+        alert("Пожалуйста, выберите хотя бы один источник загрязнения.");
+        return;
+    }
+
+    let allSolutions = [];
+    selectedCauses.forEach(cause => {
+        const solutionsForCause = getSolutionsForCause(cause, currentLevel);
+        if (solutionsForCause.length) {
+            allSolutions.push({
+                cause: getCauseName(cause),
+                solutions: solutionsForCause
+            });
+        }
+    });
+
+    displayCombinedSolutions(allSolutions);
+}
+
+function getSolutionsForCause(cause, level) {
+    // Решения для среднего уровня (yellow) — исправлены ошибки
+    const yellowSolutions = {
+        cars: [
+            "🌳 Посадить зелёные барьеры из сирени и кизильника – задерживают до 30% выхлопов",
+            "🚲 Чаще предпочитай автомобилю велосипед, если это возможно"
+        ],
+        factory: [
+            "🌲 Посадить вокруг промзоны «зелёный пояс» из тополя и ивы – поглощают диоксид серы"
+        ],
+        dust: [
+            "🏗 Применить технологию «зелёных крыш» и вертикальное озеленение",
+            "🌱 Обработать открытые грунты гидросеянием трав"
+        ],
+        burning: [
+            "🗑 Создать пункты бесплатного приёма растительных отходов для компостирования",
+            "📢 Запустить социальную рекламу о штрафах за сжигание"
+        ],
+        heating: [
+            "Попросить ТСЖ о регулярной очистке дымоходов"
+        ]
+    };
+
+    // Решения для высокого уровня (red) — исправлены ошибки
+    const redSolutions = {
+        cars: [
+            "🚨 Установить знак с запретом на долгий прогрев автомобиля во дворе",
+            "🚲 Предлагать родителям или друзьям поездки на велосипеде вместо машины"
+        ],
+        factory: [
+            "🌲 Озелени район рядом с фабрикой",
+            "📝 Договориться с руководством о временных приостановках самых грязных циклов на время"
+        ],
+        dust: [
+            "🚨 Договориться об установке пылезащиты",
+            "💧 Установить системы водяного орошения на всех источниках пыления"
+        ],
+        burning: [
+            "👮 Не жечь костры самому",
+            "🏭 Требовать от администрации создания оборудованных площадок для отходов"
+        ],
+        heating: [
+            "Попросить ТСЖ о регулировке тяги дымохода"
+        ]
+    };
+
+    if (level === 'yellow') {
+        return yellowSolutions[cause] || [];
+    } else if (level === 'red') {
+        return redSolutions[cause] || [];
+    }
+    return [];
+}
+
+function getCauseName(cause) {
+    const names = {
+        cars: "🚗 Транспорт",
+        factory: "🏭 Промышленность",
+        dust: "🌫 Пыль / стройка",
+        burning: "🔥 Сжигание мусора",
+        heating: "🏠 Отопление"
+    };
+    return names[cause] || cause;
+}
+
+function displayCombinedSolutions(allSolutions) {
+    const resultDiv = document.getElementById("solutions");
+    let html = "";
+
+    allSolutions.forEach(item => {
+        html += `<div class="cause-group"><h3>${item.cause}</h3><ul>`;
+        item.solutions.forEach(sol => {
+            html += `<li>${sol}</li>`;
+        });
+        html += `</ul></div><hr style="margin: 20px 0;">`;
+    });
+
+    if (html === "") {
+        html = "<p>Нет решений для выбранных причин.</p>";
+    }
+
+    resultDiv.innerHTML = html;
+
+    // Волонтёрский призыв после решений
+    const volunteerActionDiv = document.getElementById("volunteerAction");
+    volunteerActionDiv.innerHTML = `
+        <div class="volunteer-card" style="margin-top: 20px;">
+            <h3>🤝 Ты можешь больше!</h3>
+            <p>Теперь, когда ты знаешь решения, <strong>действуй вместе с соседями</strong>:</p>
+            <ul>
+                <li>📢 Расскажи о проблеме в соцсетях и местных чатах</li>
+                <li>🌱 Организуй посадку деревьев или субботник</li>
+            </ul>
+            <div class="links">
+                <a href="https://ecowiki.ru/" target="_blank">🌍 Найти волонтёрский проект</a>
+            </div>
+            <p class="sign">Твой голос важен! 💚</p>
+        </div>
+    `;
+
+    document.getElementById("result").classList.remove("hidden");
+    document.getElementById("result").scrollIntoView({ behavior: "smooth" });
+}
